@@ -14,7 +14,10 @@ pub use usvg::ScreenSize;
 
 use tiny_skia::PixmapMut;
 
+use usvg::Tree;
 use usvg::NodeExt;
+use usvg::FitTo;
+use usvg::Node;
 use log::warn;
 
 #[macro_use] mod macros;
@@ -33,8 +36,8 @@ mod render;
 /// If `fit_to` size differs from `tree.svg_node().size`,
 /// SVG would be scaled accordingly.
 pub fn render(
-    tree: &usvg::Tree,
-    fit_to: usvg::FitTo,
+    tree: &Tree,
+    fit_to: FitTo,
     pixmap: PixmapMut,
 ) -> Option<()> {
     let size = fit_to.fit_to(tree.svg_node().size.to_screen_size())?;
@@ -48,8 +51,8 @@ pub fn render(
 /// If `fit_to` differs from `node.calculate_bbox()`,
 /// SVG would be scaled accordingly.
 pub fn render_node(
-    node: &usvg::Node,
-    fit_to: usvg::FitTo,
+    node: &Node,
+    fit_to: FitTo,
     pixmap: PixmapMut,
 ) -> Option<()> {
     let node_bbox = if let Some(bbox) = node.calculate_bbox() {
