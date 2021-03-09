@@ -12,6 +12,8 @@
 
 pub use usvg::ScreenSize;
 
+use tiny_skia::PixmapMut;
+
 use usvg::NodeExt;
 use log::warn;
 
@@ -33,7 +35,7 @@ mod render;
 pub fn render(
     tree: &usvg::Tree,
     fit_to: usvg::FitTo,
-    pixmap: tiny_skia::PixmapMut,
+    pixmap: PixmapMut,
 ) -> Option<()> {
     let size = fit_to.fit_to(tree.svg_node().size.to_screen_size())?;
     let mut canvas = render::Canvas::from(pixmap);
@@ -48,7 +50,7 @@ pub fn render(
 pub fn render_node(
     node: &usvg::Node,
     fit_to: usvg::FitTo,
-    pixmap: tiny_skia::PixmapMut,
+    pixmap: PixmapMut,
 ) -> Option<()> {
     let node_bbox = if let Some(bbox) = node.calculate_bbox() {
         bbox
