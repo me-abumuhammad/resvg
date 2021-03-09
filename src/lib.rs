@@ -52,7 +52,7 @@ pub fn render(
 /// SVG would be scaled accordingly.
 pub fn render_node(
     node: &Node,
-    fit_to: FitTo,
+    fit_to: usvg::FitTo,
     pixmap: PixmapMut,
 ) -> Option<()> {
     let node_bbox = if let Some(bbox) = node.calculate_bbox() {
